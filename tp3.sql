@@ -7,7 +7,7 @@ CREATE TABLE typeChalet (
     Descript VARCHAR2(20)
 );
 
-CREATE TABLE baseLoisir (
+CREATE TABLE baseLoisirs (
     NumBaseL INT PRIMARY KEY,
     NomBaseL VARCHAR2(20),
     AdrBaseL VARCHAR2(20),
@@ -22,13 +22,13 @@ CREATE TABLE camping(
     CPCamping NUMBER(8),
     VilleCamping VARCHAR2(30),
     TelCamping VARCHAR2(20),
-    BaseLoisirs INT,
+    BaseLoisir INT,
     DateOuv DATE,
     DateFerm DATE,
     CONSTRAINT DateCoherence CHECK(DateOuv < DateFerm),
     NbEtoiles NUMBER(1) CONSTRAINT nombreEtoiles CHECK(NbEtoiles BETWEEN 0 AND 4),
     QualiteFrance VARCHAR2(3) DEFAULT 'Non' CHECK (QualiteFrance IN ('Oui', 'Non')),
-    FOREIGN KEY (BaseLoisirs) REFERENCES baseLoisirs(NumBaseL)
+    FOREIGN KEY (BaseLoisir) REFERENCES baseLoisirs(NumBaseL)
 );
 
 CREATE TABLE compoCamping (
@@ -41,9 +41,12 @@ CREATE TABLE compoCamping (
 );
 
 
--- DROP TABLE compoCamping;
--- DROP TABLE camping;
--- DROP TABLE baseLoisir;
--- DROP TABLE typeChalet;
+DROP TABLE compoCamping;
+DROP TABLE camping;
+DROP TABLE baseLoisirs;
+DROP TABLE typeChalet;
+--DROP SYNONYM camping;
+
 
 -- EX2
+
