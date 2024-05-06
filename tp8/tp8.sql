@@ -51,3 +51,22 @@ BEGIN
 END Afficher;
 /
 
+/*
+c) Écrire une procédure AfficherNom qui à partir du nom d’un acteur, cherche toutes les per-
+sonnes qui portent ce nom et, pour chacune d’entre elles, affiche son prénom, son nom et ap-
+pelle la procédure Afficher précédente.
+Exécuter la procédure AfficherNom pour les personnes dont le nom est « Affleck ».
+*/
+CREATE OR REPLACE PROCEDURE AfficherNom(nomActeur IN VARCHAR2) IS
+BEGIN
+    FOR personne_row IN(
+    SELECT p.idPersonne, p.prenomPersonne, p.nomPersonne, nbFilms(p.idPersonne, p.prenomPersonne, p.nomPersonne)
+    FROM bdfilm.personne p
+    WHERE p.nomPersonne = nomActeur
+    ) LOOP
+        DBMS_OUTPUT.PUT_LINE('prenom: ' || personne_row.prenomPersonne || 'nom: ' || personne_row.nomPersonne);
+        DBMS_OUTPUT.PUT_LINE('Nombre total de films: '|| personne_row.total_film);
+        Afficher(personne_row.idPersonne);
+    END LOOP;
+END AfficherNom;
+
